@@ -8,7 +8,8 @@ class MovieName:
         pass
 
     def extract_movie_name(self, sentence):
-            pass
+        pass
+
 
 class IntentType:
     """
