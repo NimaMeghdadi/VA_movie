@@ -28,7 +28,7 @@ class Run(object):
         pass #return type_intent, movie_nameMovieDetailFetcher
     
     def get_movie_details(self, movie_name):
-        MovieDetailFetcher().get_movie_details(movie_name)
+        MovieDetailFetcher().get_movie_details(movie_name , 'year')
         pass# return movie_name, answer_movie_intent
     
     def show_result(self, response):
