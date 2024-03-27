@@ -1,1 +1,1 @@
-from .omdb import MovieFinder
+from .omdb import MovieDetailFetcher
