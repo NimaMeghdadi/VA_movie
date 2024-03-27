@@ -31,6 +31,18 @@ class MovieDetailFetcher:
                 results = response['Awards']
             elif intent == 'year':
                 results = response['Year']
+            elif intent == 'runtime':
+                results = response['Runtime']
+            elif intent == 'language':
+                results = response['Language']
+            elif intent == 'country':
+                results = response['Country']
+            elif intent == 'writer':
+                results = response['Writer']
+            elif intent == 'production':
+                results = response['Production']
+            else:
+                results = "Intent not found"
                 
             if results:
                 print(results)
