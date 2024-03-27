@@ -2,6 +2,11 @@
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 
+import api
+import sys
+# adding Folder_2 to the system path
+sys.path.insert(0, 'C:/Users/meghd/Desktop/Chatbot/api/VA_movie')
+
 class ChatApp(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -23,10 +28,13 @@ class ChatApp(tk.Tk):
         user_input = self.entry.get("1.0", tk.END).strip()
         if user_input:
             self.display_message("You: " + user_input)
-            api_response = self.fake_api_call(user_input)
-            self.display_message("Server: " + api_response)
-            self.entry.delete('1.0', tk.END)
+            self.answer(user_input)
 
+    def answer(self, user_input):
+        api_response = self.api_call(user_input)
+        self.display_message("Movie VA: " + api_response)
+        self.entry.delete('1.0', tk.END)
+    
     def display_message(self, message):
         self.chat_log.config(state='normal')
         self.chat_log.insert(tk.END, message + "\n\n")
@@ -34,5 +42,6 @@ class ChatApp(tk.Tk):
         self.chat_log.see(tk.END)
         self.bell()
 
-    def fake_api_call(self, user_input):
-        return "Hi"
+    def api_call(self, user_input):
+        response = api.get_movie_details(user_input)
+        return response
