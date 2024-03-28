@@ -45,6 +45,6 @@ class MovieDetailFetcher:
                 results = "Intent not found"
                 
             if results:
-                print(results)
+                return(results)
 
 
