@@ -1,43 +1,44 @@
 import tkinter as tk
-import gui
 from tkinter.scrolledtext import ScrolledText
 
-from gui.chat import ChatApp
 from api.omdb import MovieDetailFetcher
+import  gui.chat as chat
 from tools import intent_detection
 
 class Run(object):
     def __init__(self):
-        # app = ChatApp()
-        # app.mainloop()
+        
         # self.sent = 'who is the director of Shawshank ?'
         # self.sent = 'who is the director of dune?'
         self.sent = 'who is the director of 1917?'
     
     def __call__(self):
-        # self.get_user_req()
+        self.get_user_req()
         #self.show_result(response='Inception is directed by Christopher Nolan')
-        self.intent_creation(user_req=self.sent)
-        intent=self.get_intent() 
-        result= self.get_movie_details(movie_name='Inception',intent=intent) 
-        self.show_result(result,intent)
+        # self.intent_creation(user_req=self.sent)
+        # intent=self.get_intent() 
+        # result= self.get_movie_details(movie_name='Inception',intent=intent) 
+        # self.show_result(result,intent)
+        # self.get_movie_details('Inception', 'director')
     
     def get_user_req(self):
-        pass# return user_req
+        app = chat.ChatApp()
+        app.mainloop()
     
-    def intent_creation(self,user_req):
+    def intent_creation(self,user_req)-> str:
         movie_name = intent_detection.MovieName()
         intent_type = intent_detection.IntentType()
         print(movie_name(user_req))
         print(intent_type(user_req))
-        #return type_intent, movie_name
-    def get_intent(self):
-        pass
+        return intent_type(user_req), movie_name(user_req)
     
-    def intent_creation(self, user_req):
-        print(user_req)
-        pass #return type_intent, movie_nameMovieDetailFetcher
-    
+    def get_answer(self,user_req)-> str:
+        intent_type, movie_name=self.intent_creation(user_req)
+        print(f"movie_name: {movie_name},{intent_type}")
+        answer = self.get_movie_details(movie_name, intent_type)
+        print(f"answer: {answer}")
+        return answer
+
     def get_movie_details(self, movie_name, intent):
         return MovieDetailFetcher().get_movie_details(movie_name , intent)
         pass# return movie_name, answer_movie_intent
@@ -50,7 +51,7 @@ class Run(object):
         elif(intent=='plot'):
             print(f"The plot of the movie is {response}")
         elif(intent=='actors'):
-            print(f"The actors of the movie are {response}")    
+            print(f"The actors of the movie are {response}")
         elif(intent=='release'):
             print(f"The movie was released on {response}")
         elif(intent=='rating'):

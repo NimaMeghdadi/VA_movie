@@ -43,7 +43,8 @@ class MovieDetailFetcher:
                 results = response['Production']
             else:
                 results = "Intent not found"
-                
+            
+            print(results)
             if results:
                 return(results)
 
