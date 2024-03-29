@@ -42,8 +42,6 @@ class MovieName:
     def query(self,payload,headers):
         response = requests.post(self.API_URL, headers=headers, json=payload)
         return response.json()
-
-
 class IntentType:
     """
     Extracts intent type from a sentence.
