@@ -46,5 +46,7 @@ class MovieDetailFetcher:
                 
             if results:
                 return(results)
+            else:
+                return "No information found, please check the movie name"
 
 
