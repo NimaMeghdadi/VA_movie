@@ -10,7 +10,9 @@ class Run(object):
     def __init__(self):
         # app = ChatApp()
         # app.mainloop()
-        self.sent = 'who is the director of Inception?'
+        # self.sent = 'who is the director of Shawshank ?'
+        # self.sent = 'who is the director of dune?'
+        self.sent = 'who is the director of 1917?'
     
     def __call__(self):
         # self.get_user_req()
@@ -23,8 +25,11 @@ class Run(object):
         pass# return user_req
     
     def intent_creation(self,user_req):
-        print(user_req)
-        pass #return type_intent, movie_name
+        movie_name = intent_detection.MovieName()
+        intent_type = intent_detection.IntentType()
+        print(movie_name(user_req))
+        print(intent_type(user_req))
+        #return type_intent, movie_name
     
     
     def get_movie_details(self, movie_name):
