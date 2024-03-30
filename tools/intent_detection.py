@@ -1,13 +1,13 @@
 import re
-import spacy
-import requests
-import json
-import os
+import string
 import requests
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-import string
+
+#import spacy
+# import json
+# import os
 
 # Download necessary NLTK data
 
@@ -17,10 +17,10 @@ class MovieName:
     Extracts movie names from a sentence.
     """
     def __init__(self):
-        self.nlp = spacy.load("en_core_web_sm")
+        # self.nlp = spacy.load("en_core_web_sm")
         self.model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
         self.API_URL = HUGGINGFACE_API_URL + self.model
-        pass
+        # pass
     def __call__(self,user_req) -> str:
         return self.extract_movie_name(user_req=user_req)
         # return self.extract_movie_name(user_req=user_req)
@@ -53,6 +53,7 @@ class IntentType:
     def __call__(self,user_req) -> str:
         return self.extract_intent_type(user_req=user_req)
 
+#payam inja -->
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
         "plot": ["plot", "story", "summary", "synopsis"],
