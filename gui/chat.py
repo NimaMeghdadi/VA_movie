@@ -1,6 +1,7 @@
 # chat_app.py
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
+from tools import intent_detection
 import api
 import sys
 
@@ -34,7 +35,33 @@ class ChatApp(tk.Tk):
 
     def get_answer(self, user_input):
         answer = self.run.get_answer(user_input)
-        self.display_message("Movie VA: " + str(answer))
+        movieName= intent_detection.MovieName()(user_input)
+        intent = intent_detection.IntentType()(user_input)
+        if answer and intent and movieName:
+                if(intent=='Year'):
+                    self.display_message("Movie VA: The year of the movie " + str(movieName.title())+" is " + str(answer))
+                elif(intent=='Director'):
+                    self.display_message("Movie VA: The director of the movie " + str(movieName.title())+" is " + str(answer))
+                elif(intent=='Plot'):
+                    self.display_message("Movie VA: The plot of the movie " + str(movieName.title())+" is " + str(answer))
+                elif(intent=='Actors'):
+                    self.display_message("Movie VA: The actors of the movie " + str(movieName.title())+"  are " + str(answer))
+                elif(intent=='Rating'):
+                    self.display_message("Movie VA: The rating of the movie " + str(movieName.title())+"  is " + str(answer))
+                elif(intent=='Genre'):
+                    self.display_message("Movie VA: The genre of the movie " + str(movieName.title())+"  is " + str(answer))
+                elif(intent=='Awards'): 
+                    self.display_message("Movie VA: The awards of the movie " + str(movieName.title())+"  are " + str(answer))
+                elif(intent=='Language'):
+                    self.display_message("Movie VA: The language of the movie " + str(movieName.title())+"  is " + str(answer))
+                elif(intent=='Country'):
+                    self.display_message("Movie VA: The country of the movie " + str(movieName.title())+"  is " + str(answer))
+                elif(intent=='Writer'):
+                    self.display_message("Movie VA: The writer of the movie " + str(movieName.title())+"  is " + str(answer))
+                else:
+                    self.display_message("unfortunately, the information you are looking for does not supported in current version of VA-Movie")
+        
+        #self.display_message("Movie VA: " + str(answer))
         self.entry.delete('1.0', tk.END)
     
     def display_message(self, message):

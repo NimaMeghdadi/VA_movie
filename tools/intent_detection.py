@@ -23,7 +23,6 @@ class MovieName:
         # pass
     def __call__(self,user_req) -> str:
         return self.extract_movie_name(user_req=user_req)
-        # return self.extract_movie_name(user_req=user_req)
         
     def extract_movie_name(self, user_req) -> str:
         headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
@@ -42,6 +41,9 @@ class MovieName:
     def query(self,payload,headers):
         response = requests.post(self.API_URL, headers=headers, json=payload)
         return response.json()
+    
+
+
 class IntentType:
     """
     Extracts intent type from a sentence.
@@ -56,10 +58,17 @@ class IntentType:
 #payam inja -->
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
-        "plot": ["plot", "story", "summary", "synopsis"],
-        "director": ["director", "directed"],
-        "actors": ["cast", "actors", "starring"],
-        "release_date": ["release date", "released"],
+        "Year": ["year", "when", "release date", "released"],
+        "Director": ["director", "directed"],
+        "Plot": ["plot", "story", "summary", "synopsis"],
+        "Actors": ["cast", "actors", "starring"],
+        "Rating": ["rating", "rated", "rated" , "imdb score", "score"],
+        "Genre": ["genre", "horor", "comedy", "romantic", "action"],
+        "Awards": ["awards", "award", "prize", "winner", "win","won"],
+        "Language": ["language", "speak", "english", "spanish", "french"],
+        "Country": ["country", "made", "origin", "originated"],
+        "Writer": ["writer", "written", "script"]
+        
         }
 
         # Tokenize the input text and remove punctuation

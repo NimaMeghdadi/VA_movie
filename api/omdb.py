@@ -15,32 +15,27 @@ class MovieDetailFetcher:
             print("===================")
             print(response)
             print("===================")
-            if intent == 'director':
-                results = response['Director']
-            elif intent == 'plot':
-                results = response['Plot']
-            elif intent == 'actors':    
-                results = response['Actors']
-            elif intent == 'release':
-                results = response['Released']
-            elif intent == 'rating':
-                results = response['imdbRating']
-            elif intent == 'genre':
-                results = response['Genre']
-            elif intent == 'awards':
-                results = response['Awards']
-            elif intent == 'year':
+            if intent == 'year' or intent =='Year':
                 results = response['Year']
-            elif intent == 'runtime':
-                results = response['Runtime']
-            elif intent == 'language':
+            elif intent == 'director' or intent == 'Director':
+                results = response['Director']
+            elif intent == 'plot' or intent == 'Plot':
+                results = response['Plot']
+            elif intent == 'actors' or intent == 'Actors':    
+                results = response['Actors']
+            elif intent == 'rating' or intent == 'Rating':
+                results = response['ImdbRating']
+            elif intent == 'genre' or intent == 'Genre':
+                results = response['Genre']
+            elif intent == 'awards' or intent == 'Awards':
+                results = response['Awards']
+            elif intent == 'language' or intent == 'Language':
                 results = response['Language']
-            elif intent == 'country':
+            elif intent == 'country' or intent == 'Country':
                 results = response['Country']
-            elif intent == 'writer':
+            elif intent == 'writer' or intent == 'Writer':
                 results = response['Writer']
-            elif intent == 'production':
-                results = response['Production']
+          
             else:
                 results = "Intent not found"
             
