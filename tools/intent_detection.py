@@ -28,10 +28,15 @@ class MovieName:
 
     def extract_movie_name(self, user_req) -> str:
         
-        # movie_name = self.extract_movie_name_ner(user_req)
+        #movie_name1 = self.extract_movie_name_ner(user_req)
         # extract movie name from LLM
-        movie_name = self.extract_movie_name_llm(user_req)
-        return movie_name
+
+        movie_name2 = self.extract_movie_name_llm(user_req)
+
+        #print(f"movie_name1: {movie_name1}")
+        #print(f"movie_name2: {movie_name2}")
+
+        return movie_name2
     
     def extract_movie_name_ner(self, user_req) -> str:
         # extract movie name from LLM
@@ -58,7 +63,7 @@ class MovieName:
         return movie_name
     
     def query(self,payload,headers):
-        response = requests.post(self.API_URL, headers=headers, json=payload)
+        response = requests.post(self.API_URL, headers=headers, json=payload, timeout=20)
         return response.json()
     
 
@@ -75,16 +80,16 @@ class IntentType:
 #payam inja -->
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
-        "Year": ["year", "when", "release date", "released"],
-        "Director": ["director", "directed", "filmmaker", "directors","directing","direct"],
-        "Plot": ["plot", "story", "summary", "synopsis"],
-        "Actors": ["cast", "actors","actor","actress","actresses","starring"],
-        "Rating": ["rating", "rated", "rated" , "imdb score", "score"],
-        "Genre": ["genre", "horor", "comedy", "romantic", "action"],
-        "Awards": ["awards", "award", "prize", "winner", "win","won"],
-        "Language": ["language", "speak", "english", "spanish", "french"],
-        "Country": ["country", "made", "origin", "originated"],
-        "Writer": ["writer", "written", "script"]
+        "Year": ["year", "when", "release date", "released", "release", "year of release", "the year"],
+        "Director": ["director", "directed", "filmmaker", "directors","directing","direct", "the director"],
+        "Plot": ["plot", "story", "summary", "synopsis", "plot summary", "plot of the movie", "plot of the film","the summary", "the plot"],
+        "Actors": ["cast", "actors","actor","actress","actresses","starring","starred","star","stars","role","roles","character","characters", "the actors","the actresses","the cast"],
+        "Rating": ["rating", "rated", "rated" , "imdb score", "score", "imdb rating", "imdb", "rate", "the rating"],
+        "Genre": ["genre", "horor", "comedy", "romantic", "action" , "thriller", "drama", "adventure", "sci-fi", "science fiction", "the genre"],
+        "Awards": ["awards", "award", "prize","prizes", "nominated", "nominations", "the awards","won", "winner", "winners"],
+        "Language": ["language", "speak", "english", "spanish", "french" , "german", "italian", "the language"],
+        "Country": ["country", "made", "origin", "originated" , "the country"],
+        "Writer": ["writer", "written", "script" , "the writer"]
         }
 
         # Tokenize the input text and remove punctuation
