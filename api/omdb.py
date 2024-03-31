@@ -8,22 +8,21 @@ class MovieDetailFetcher:
         pass
 
     def get_movie_details(self, movie_name, intent):
-
-        payload = {'t': movie_name, 'apikey': API_KEY}
+        # if (movie_name == "ERRORRRR"):
+        #     return "Movie VA: Sorry, we cannot find the movie name in our database, please check with another movie."
+               
+        payload = {'t': movie_name.title() , 'apikey': API_KEY}
         response = requests.get(OMDB_URL, params=payload, timeout=10)  # Added timeout argument
         response = response.json()
         results = None
-        if response['Response'] != False:
-            print("===================")
-            print(response)
-            print("===================")
+        if response['Response'] !='False':
             if intent == 'year' or intent =='Year':
                 results = response['Year']
             elif intent == 'director' or intent == 'Director':
                 results = response['Director']
             elif intent == 'plot' or intent == 'Plot':
                 results = response['Plot']
-            elif intent == 'actors' or intent == 'Actors':    
+            elif intent == 'actors' or intent == 'Actors':
                 results = response['Actors']
             elif intent == 'rating' or intent == 'Rating':
                 results = response['ImdbRating']
@@ -37,14 +36,11 @@ class MovieDetailFetcher:
                 results = response['Country']
             elif intent == 'writer' or intent == 'Writer':
                 results = response['Writer']
-          
-            else:
-                results = "Intent not found"
-            
-        print(results)
+        else:
+            results = "ERRORRRR"
         if results:
             return(results)
         else:
-            return "No information found, please check the movie name"
+            return "ERRORRRR"
 
 

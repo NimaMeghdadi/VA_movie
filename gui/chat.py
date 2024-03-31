@@ -44,7 +44,9 @@ class ChatApp(tk.Tk):
         print(f"intent: {intent}")
         print(f"movieName: {movieName}")
         if answer and intent and movieName:
-                if(intent=='Year'):
+                if (movieName == "ERRORRRR" or answer == "ERRORRRR" or intent == "ERRORRRR" or movieName == "" or answer == "" or intent == ""):
+                    self.display_message("Movie VA: Sorry, we cannot find the movie name in our database, please check another movie.")
+                elif(intent=='Year'):
                     self.display_message("Movie VA: The year of the movie " + str(movieName.title())+" is " + str(answer))
                 elif(intent=='Director'):
                     self.display_message("Movie VA: The director of the movie " + str(movieName.title())+" is " + str(answer))
