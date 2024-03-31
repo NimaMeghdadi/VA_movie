@@ -1,8 +1,11 @@
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
+<<<<<<< HEAD
 import requests
 import time
 
+=======
+>>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
 from api.omdb import MovieDetailFetcher
 import  gui.chat as chat
 from tools import intent_detection
@@ -46,37 +49,35 @@ class Run(object):
 
     def get_movie_details(self, movie_name, intent):
         return MovieDetailFetcher().get_movie_details(movie_name , intent)
+<<<<<<< HEAD
+=======
+        # pass return movie_name, answer_movie_intent
+>>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
      
     def show_result(self, response, intent):
-        if(intent=='year'):
-            print(f"The year of the movie is {response}")
-        elif(intent=='director'):
-            print(f"The director of the movie is {response}")
-        elif(intent=='plot'):
-            print(f"The plot of the movie is {response}")
-        elif(intent=='actors'):
-            print(f"The actors of the movie are {response}")
-        elif(intent=='release'):
-            print(f"The movie was released on {response}")
-        elif(intent=='rating'):
-            print(f"The rating of the movie is {response}")
-        elif(intent=='genre'):
-            print(f"The genre of the movie is {response}")
-        elif(intent=='awards'): 
-            print(f"The awards of the movie are {response}")
-        elif(intent=='runtime'):
-            print(f"The runtime of the movie is {response}")
-        elif(intent=='language'):
-            print(f"The language of the movie is {response}")
-        elif(intent=='country'):
-            print(f"The country of the movie is {response}")
-        elif(intent=='writer'):
-            print(f"The writer of the movie is {response}")
-        elif(intent=='production'):
-            print(f"The production of the movie is {response}")
-        else:
-            print("Intent not found")
         pass
+        # if(intent=='Year'):
+        #     print(f"The year of the movie is {response}")
+        # elif(intent=='Director'):
+        #     print(f"The director of the movie is {response}")
+        # elif(intent=='Plot'):
+        #     print(f"The plot of the movie is {response}")
+        # elif(intent=='Actors'):
+        #     print(f"The actors of the movie are {response}")
+        # elif(intent=='Rating'):
+        #     print(f"The rating of the movie is {response}")
+        # elif(intent=='Genre'):
+        #     print(f"The genre of the movie is {response}")
+        # elif(intent=='Awards'): 
+        #     print(f"The awards of the movie are {response}")
+        # elif(intent=='Language'):
+        #     print(f"The language of the movie is {response}")
+        # elif(intent=='Country'):
+        #     print(f"The country of the movie is {response}")
+        # elif(intent=='Writer'):
+        #     print(f"The writer of the movie is {response}")
+        # else:
+        #     print("Intent not found")
     
     def check_model(self):
         headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
