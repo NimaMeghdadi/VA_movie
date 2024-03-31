@@ -4,29 +4,57 @@ import requests
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+import string
+import spacy
+from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL
+# Check if the nltk packages are already downloaded, if not, then download them
+nltk_packages = ['punkt', 'stopwords']
 
 #import spacy
 # import json
 # import os
 
-# Download necessary NLTK data
+for package in nltk_packages:
+    try:
+        # Check if package is already downloaded
+        nltk.data.find(f'tokenizers/{package}')
+    except LookupError:
+        # If not found, download it
+        nltk.download(package)
 
-from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL
 class MovieName:
     """
     Extracts movie names from a sentence.
     """
     def __init__(self):
+        
+        self.nlp = spacy.load("en_core_web_sm")
         # self.nlp = spacy.load("en_core_web_sm")
         self.model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
         self.API_URL = HUGGINGFACE_API_URL + self.model
         # pass
     def __call__(self,user_req) -> str:
+        
         return self.extract_movie_name(user_req=user_req)
         
+    
+        
     def extract_movie_name(self, user_req) -> str:
+        
+        # movie_name = self.extract_movie_name_ner(user_req)
+        # extract movie name from LLM
+        movie_name = self.extract_movie_name_llm(user_req)
+        return movie_name
+    
+    def extract_movie_name_ner(self, user_req) -> str:
+        # extract movie name from LLM
+        doc = self.nlp(user_req)
+        movie_name = [ent.text for ent in doc.ents if ent.label_ in ("WORK_OF_ART", "ORG", "PERSON")]
+        movie_name = movie_name[0] if movie_name else ''
+
+    def extract_movie_name_llm(self, user_req) -> str:
+        # extract movie name from LLM
         headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
-        # Example question and context
         input_data = {
             "inputs": {
                 "question": "which movie we are talking about?",
@@ -42,7 +70,7 @@ class MovieName:
 
         print(" mio mio "+ output['answer'] +" " + movie_name)
         return movie_name
-        
+    
     def query(self,payload,headers):
         response = requests.post(self.API_URL, headers=headers, json=payload)
         return response.json()
@@ -63,16 +91,33 @@ class IntentType:
 #payam inja -->
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
-        "Year": ["year", "when", "release date", "released", "release", "year of release", "the year"],
-        "Director": ["director", "directed", "filmmaker", "directors","directing","direct", "the director"],
-        "Plot": ["plot", "story", "summary", "synopsis", "plot summary", "plot of the movie", "plot of the film","the summary", "the plot"],
-        "Actors": ["cast", "actors","actor","actress","actresses","starring","starred","star","stars","role","roles","character","characters", "the actors","the actresses","the cast"],
-        "Rating": ["rating", "rated", "rated" , "imdb score", "score", "imdb rating", "imdb", "rate", "the rating"],
-        "Genre": ["genre", "horor", "comedy", "romantic", "action" , "thriller", "drama", "adventure", "sci-fi", "science fiction", "the genre"],
-        "Awards": ["awards", "award", "prize","prizes", "nominated", "nominations", "the awards","won", "winner", "winners"],
-        "Language": ["language", "speak", "english", "spanish", "french" , "german", "italian", "the language"],
-        "Country": ["country", "made", "origin", "originated" , "the country"],
-        "Writer": ["writer", "written", "script" , "the writer"]
+# <<<<<<< HEAD
+#         "Year": ["year", "when", "release date", "released", "release", "year of release", "the year"],
+#         "Director": ["director", "directed", "filmmaker", "directors","directing","direct", "the director"],
+#         "Plot": ["plot", "story", "summary", "synopsis", "plot summary", "plot of the movie", "plot of the film","the summary", "the plot"],
+#         "Actors": ["cast", "actors","actor","actress","actresses","starring","starred","star","stars","role","roles","character","characters", "the actors","the actresses","the cast"],
+#         "Rating": ["rating", "rated", "rated" , "imdb score", "score", "imdb rating", "imdb", "rate", "the rating"],
+#         "Genre": ["genre", "horor", "comedy", "romantic", "action" , "thriller", "drama", "adventure", "sci-fi", "science fiction", "the genre"],
+#         "Awards": ["awards", "award", "prize","prizes", "nominated", "nominations", "the awards","won", "winner", "winners"],
+#         "Language": ["language", "speak", "english", "spanish", "french" , "german", "italian", "the language"],
+#         "Country": ["country", "made", "origin", "originated" , "the country"],
+#         "Writer": ["writer", "written", "script" , "the writer"]
+# =======
+        "plot": ["plot", "story", "summary", "synopsis"],
+        "director": ["director", "directed"],
+        "actors": ["cast", "actors", "starring"],
+        "release_date": ["release date", "released"],
+        "Year": ["year", "when", "release date", "released"],
+        "Director": ["director", "directed", "filmmaker", "directors","directing","direct"],
+        "Plot": ["plot", "story", "summary", "synopsis"],
+        "Actors": ["cast", "actors","actor","actress","actresses","starring"],
+        "Rating": ["rating", "rated", "rated" , "imdb score", "score"],
+        "Genre": ["genre", "horor", "comedy", "romantic", "action"],
+        "Awards": ["awards", "award", "prize", "winner", "win","won"],
+        "Language": ["language", "speak", "english", "spanish", "french"],
+        "Country": ["country", "made", "origin", "originated"],
+        "Writer": ["writer", "written", "script"]
+# >>>>>>> 7e0779f1a3e72336b90259056551504a165db248
         
         }
 
