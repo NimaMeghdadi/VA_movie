@@ -1,24 +1,18 @@
-<<<<<<< HEAD
-=======
 import re
 import string
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
 import requests
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-<<<<<<< HEAD
 import string
 import spacy
 from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL
 # Check if the nltk packages are already downloaded, if not, then download them
 nltk_packages = ['punkt', 'stopwords']
-=======
 
 #import spacy
 # import json
 # import os
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
 
 for package in nltk_packages:
     try:
@@ -33,23 +27,17 @@ class MovieName:
     Extracts movie names from a sentence.
     """
     def __init__(self):
-<<<<<<< HEAD
         
         self.nlp = spacy.load("en_core_web_sm")
-=======
         # self.nlp = spacy.load("en_core_web_sm")
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
         self.model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
         self.API_URL = HUGGINGFACE_API_URL + self.model
         # pass
     def __call__(self,user_req) -> str:
         
         return self.extract_movie_name(user_req=user_req)
-<<<<<<< HEAD
         
     
-=======
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
         
     def extract_movie_name(self, user_req) -> str:
         
@@ -101,13 +89,10 @@ class IntentType:
 #payam inja -->
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
-<<<<<<< HEAD
         "plot": ["plot", "story", "summary", "synopsis"],
         "director": ["director", "directed"],
         "actors": ["cast", "actors", "starring"],
         "release_date": ["release date", "released"],
-        "year": ["year"],
-=======
         "Year": ["year", "when", "release date", "released"],
         "Director": ["director", "directed", "filmmaker", "directors","directing","direct"],
         "Plot": ["plot", "story", "summary", "synopsis"],
@@ -119,7 +104,6 @@ class IntentType:
         "Country": ["country", "made", "origin", "originated"],
         "Writer": ["writer", "written", "script"]
         
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
         }
 
         # Tokenize the input text and remove punctuation

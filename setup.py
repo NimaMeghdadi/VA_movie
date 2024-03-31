@@ -1,11 +1,8 @@
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
-<<<<<<< HEAD
 import requests
 import time
 
-=======
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
 from api.omdb import MovieDetailFetcher
 import  gui.chat as chat
 from tools import intent_detection
@@ -49,10 +46,7 @@ class Run(object):
 
     def get_movie_details(self, movie_name, intent):
         return MovieDetailFetcher().get_movie_details(movie_name , intent)
-<<<<<<< HEAD
-=======
         # pass return movie_name, answer_movie_intent
->>>>>>> de3fc588e0975a1c1fbef64d7f7a49fb4d7ec96f
      
     def show_result(self, response, intent):
         pass
