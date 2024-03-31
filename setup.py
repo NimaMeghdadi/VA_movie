@@ -51,12 +51,15 @@ class Run(object):
         model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
         API_URL = HUGGINGFACE_API_URL + model
         for i in range(retry_attempts):
-            print(f"Attempt {i+1}")
+            print(f"Attempt for model {i+1}")
             try:
                 output = requests.post(API_URL, json=input_data, headers=headers)
                 output = output.json()
-                print(output)
-                if output['score']:
+                if "error" in output:
+                    delay_seconds = output['estimated_time']
+                    print(f"model is not ready pls wait {delay_seconds} seconds")
+                    time.sleep(delay_seconds)
+                elif "score" in output:
                     print("model is ready")
                     return True
                 time.sleep(delay_seconds)

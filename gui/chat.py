@@ -41,8 +41,6 @@ class ChatApp(tk.Tk):
         answer = self.run.get_answer(user_input)
         movieName= intent_detection.MovieName()(user_input)
         intent = intent_detection.IntentType()(user_input)
-        print(f"intent: {intent}")
-        print(f"movieName: {movieName}")
         if answer and intent and movieName:
                 if (movieName == "ERRORRRR" or answer == "ERRORRRR" or intent == "ERRORRRR" or movieName == "" or answer == "" or intent == ""):
                     self.display_message("Movie VA: Sorry, we cannot find the movie name in our database, please check another movie.")
