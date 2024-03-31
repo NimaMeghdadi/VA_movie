@@ -35,7 +35,7 @@ class MovieName:
         }
         output = self.query(input_data,headers)
         if 'answer' not in output:
-            return "we cannot find the movie name in our database, please another movie name."
+            return "ERRORRRR"
         movie_name = [letter for letter in output['answer'] if letter != '?']
         movie_name = ''.join(movie_name)
         print(" mio mio "+ output['answer'] +" " + movie_name)
