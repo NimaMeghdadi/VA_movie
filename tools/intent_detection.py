@@ -34,8 +34,11 @@ class MovieName:
             }
         }
         output = self.query(input_data,headers)
+        if 'answer' not in output:
+            return "we cannot find the movie name in our database, please another movie name."
         movie_name = [letter for letter in output['answer'] if letter != '?']
         movie_name = ''.join(movie_name)
+        print(" mio mio "+ output['answer'] +" " + movie_name)
         return movie_name
         
     def query(self,payload,headers):
@@ -59,9 +62,9 @@ class IntentType:
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
         "Year": ["year", "when", "release date", "released"],
-        "Director": ["director", "directed"],
+        "Director": ["director", "directed", "filmmaker", "directors","directing","direct"],
         "Plot": ["plot", "story", "summary", "synopsis"],
-        "Actors": ["cast", "actors", "starring"],
+        "Actors": ["cast", "actors","actor","actress","actresses","starring"],
         "Rating": ["rating", "rated", "rated" , "imdb score", "score"],
         "Genre": ["genre", "horor", "comedy", "romantic", "action"],
         "Awards": ["awards", "award", "prize", "winner", "win","won"],
