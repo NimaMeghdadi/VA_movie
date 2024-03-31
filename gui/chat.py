@@ -1,13 +1,11 @@
-# chat_app.py
+
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 from tkinter import PhotoImage
 from tools import intent_detection
-import api
 import sys
-
 import setup
-# adding Folder_2 to the system path
+
 sys.path.insert(0, 'C:/Users/meghd/Desktop/Chatbot/api/VA_movie')
 
 class ChatApp(tk.Tk):
@@ -15,30 +13,22 @@ class ChatApp(tk.Tk):
         super().__init__()
         self.run = setup.Run()
         self.title("Va-Movie application")
-        self.geometry("1920x1080")
+        self.geometry("500x700")
 
         image_file = "gui/2.png"
         img = PhotoImage(file=image_file)
         self.background_label = tk.Label(self, image=img)
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
         self.background_label.image = img
-
-
-
-
         self.chat_log = ScrolledText(self, state='disabled', height=20 , font=('Helvetica', 12))
         self.chat_log.pack(padx=20, pady=(130,10) )
-
         self.entry = ScrolledText(self, height=4, font=('Helvetica', 12))
         self.entry.pack(padx=20, pady=10)
-
-
+        
         submit_button = tk.Button(self, text="Send", command=self.on_submit, height= 4 
                                   , width=81, bg="#163261", fg="white", font=('Helvetica', 12))
         submit_button.pack(pady=10)
-
         self.display_message("Movie VA: Hello! How can I help you today?")
-
         self.bind("<Return>", self.on_submit)
 
     def on_submit(self, event=None):
@@ -51,6 +41,8 @@ class ChatApp(tk.Tk):
         answer = self.run.get_answer(user_input)
         movieName= intent_detection.MovieName()(user_input)
         intent = intent_detection.IntentType()(user_input)
+        print(f"intent: {intent}")
+        print(f"movieName: {movieName}")
         if answer and intent and movieName:
                 if(intent=='Year'):
                     self.display_message("Movie VA: The year of the movie " + str(movieName.title())+" is " + str(answer))

@@ -1,4 +1,3 @@
-import re
 import string
 import requests
 import nltk
@@ -6,21 +5,9 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import string
 import spacy
+
 from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL
-# Check if the nltk packages are already downloaded, if not, then download them
 nltk_packages = ['punkt', 'stopwords']
-
-#import spacy
-# import json
-# import os
-
-for package in nltk_packages:
-    try:
-        # Check if package is already downloaded
-        nltk.data.find(f'tokenizers/{package}')
-    except LookupError:
-        # If not found, download it
-        nltk.download(package)
 
 class MovieName:
     """
@@ -66,7 +53,6 @@ class MovieName:
             return "we cannot find the movie name in our database, please another movie name."
         movie_name = [letter for letter in output['answer'] if letter != '?']
         movie_name = ''.join(movie_name)
-        print(" mio mio "+ output['answer'] +" " + movie_name)
         return movie_name
     
     def query(self,payload,headers):
@@ -89,10 +75,6 @@ class IntentType:
 #payam inja -->
     def extract_intent_type(self, user_req) -> str:
         intent_keywords = {
-        "plot": ["plot", "story", "summary", "synopsis"],
-        "director": ["director", "directed"],
-        "actors": ["cast", "actors", "starring"],
-        "release_date": ["release date", "released"],
         "Year": ["year", "when", "release date", "released"],
         "Director": ["director", "directed", "filmmaker", "directors","directing","direct"],
         "Plot": ["plot", "story", "summary", "synopsis"],

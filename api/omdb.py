@@ -1,4 +1,5 @@
 import requests
+
 from config import OMDB_URL,API_KEY
 
 class MovieDetailFetcher:
@@ -10,8 +11,9 @@ class MovieDetailFetcher:
 
         payload = {'t': movie_name, 'apikey': API_KEY}
         response = requests.get(OMDB_URL, params=payload, timeout=10)  # Added timeout argument
-        if response.status_code == 200:
-            response = response.json()
+        response = response.json()
+        results = None
+        if response['Response'] != False:
             print("===================")
             print(response)
             print("===================")
@@ -39,10 +41,10 @@ class MovieDetailFetcher:
             else:
                 results = "Intent not found"
             
-            print(results)
-            if results:
-                return(results)
-            else:
-                return "No information found, please check the movie name"
+        print(results)
+        if results:
+            return(results)
+        else:
+            return "No information found, please check the movie name"
 
 
