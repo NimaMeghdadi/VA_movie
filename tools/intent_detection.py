@@ -1,10 +1,6 @@
-import string
 import requests
-import string
 import spacy
 import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
 nltk_packages = ["punkt", "stopwords"]
 nltk.download(nltk_packages,quiet=True)
 nlp = spacy.load("en_core_web_sm")
@@ -16,32 +12,32 @@ class MovieName:
     Extracts movie names from a sentence.
     """
     def __init__(self):
-        
-       
-        # self.nlp = spacy.load("en_core_web_sm")
         self.model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
         self.API_URL = HUGGINGFACE_API_URL + self.model
-        # pass
+        
     def __call__(self,user_req) -> str:
         
         return self.extract_movie_name(user_req=user_req)
 
     def extract_movie_name(self, user_req) -> str:
-        
+        # extract movie name using NER
         movie_name1 = self.extract_movie_name_ner(user_req)
+
         # extract movie name from LLM
-
         movie_name2 = self.extract_movie_name_llm(user_req)
-
+        
         print(f"movie_name1: {movie_name1}")
         print(f"movie_name2: {movie_name2}")
-
-        return movie_name2
+        print(movie_name2 == movie_name1)
+        if movie_name1 == movie_name2:
+            print("VAREDSHOD")
+            return movie_name2
+        return "ERRORRRR_movie_name"
     
     def extract_movie_name_ner(self, user_req) -> str:
-        # extract movie name from LLM
+        # extract movie name from LLM Huggingface
         doc = nlp(user_req)
-        movie_name = [ent.text for ent in doc.ents if ent.label_ in ("WORK_OF_ART", "ORG", "PERSON")]
+        movie_name = [ent.text for ent in doc.ents if ent.label_ in ("WORK_OF_ART", "ORG", "PERSON",'NUM')]
         movie_name = movie_name[0] if movie_name else ''
         return movie_name
 
@@ -56,7 +52,7 @@ class MovieName:
         }
         output = self.query(input_data,headers)
         if 'answer' not in output:
-            return "ERRORRRR"
+            return "ERRORRRR_movie_name"
         
         movie_name = [letter for letter in output['answer'] if letter != '?']
         movie_name = ''.join(movie_name)
@@ -71,15 +67,15 @@ class MovieName:
 
 class IntentType:
     """
-    Extracts intent type from a sentence.
+    Extracts intent type from a sentence using keyword detection.
     """
     def __init__(self):
         pass
     def __call__(self,user_req) -> str:
         return self.extract_intent_type(user_req=user_req)
 
-#payam inja -->
     def extract_intent_type(self, user_req) -> str:
+        # extract intent type from user request by using keywords in the sentence
         intent_keywords = {
         "Year": ["year", "when", "release date", "released", "release", "year of release", "the year"],
         "Director": ["director", "directed", "filmmaker", "directors","directing","direct", "the director"],
@@ -93,14 +89,10 @@ class IntentType:
         "Writer": ["writer", "written", "script" , "the writer"]
         }
 
-        # Tokenize the input text and remove punctuation
-        stop_words = set(stopwords.words('english') + list(string.punctuation))
-        words = word_tokenize(user_req)
-
-        # Initialize intent and potential title
         intent = None
         for key, keywords in intent_keywords.items():
             if any(keyword in user_req.lower() for keyword in keywords):
                 intent = key
-                break
-        return str(intent)
+                return str(intent)
+        return "ERRORRRR_intent_type"
+        

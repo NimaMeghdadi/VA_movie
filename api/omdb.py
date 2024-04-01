@@ -3,14 +3,18 @@ import requests
 from config import OMDB_URL,API_KEY
 
 class MovieDetailFetcher:
+    """
+    Get movie details from the OMDB API.
+    """
 
     def __init__(self):
         pass
 
     def get_movie_details(self, movie_name, intent):
-        # if (movie_name == "ERRORRRR"):
-        #     return "Movie VA: Sorry, we cannot find the movie name in our database, please check with another movie."
-               
+        if (movie_name == "ERRORRRR_movie_name"):
+            return "ERRORRRR_movie_name"
+        elif (intent == "ERRORRRR_intent_type"):
+            return "ERRORRRR_intent_type"
         payload = {'t': movie_name.title() , 'apikey': API_KEY}
         response = requests.get(OMDB_URL, params=payload, timeout=10)  # Added timeout argument
         response = response.json()
@@ -37,10 +41,9 @@ class MovieDetailFetcher:
             elif intent == 'writer' or intent == 'Writer':
                 results = response['Writer']
         else:
-            results = "ERRORRRR"
-        if results:
-            return(results)
-        else:
-            return "ERRORRRR"
+            results = "ERRORRRR_answer"
+
+        return results
+
 
 

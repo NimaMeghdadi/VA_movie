@@ -9,10 +9,14 @@ import setup
 sys.path.insert(0, 'C:/Users/meghd/Desktop/Chatbot/api/VA_movie')
 
 class ChatApp(tk.Tk):
+    """
+    Chat application GUI.
+    """
     def __init__(self):
         super().__init__()
+        self.dependecy = 0
         self.run = setup.Run()
-        self.title("Va-Movie application")
+        self.title("Virtual AMovie application")
         self.geometry("500x700")
 
         image_file = "gui/2.png"
@@ -35,15 +39,33 @@ class ChatApp(tk.Tk):
         user_input = self.entry.get("1.0", tk.END).strip()
         if user_input:
             self.display_message("You: " + user_input)
-            self.get_answer(user_input)
-
+            if self.dependecy != 0:
+                movie_name = user_input
+                self.get_movie(movie_name)
+                self.dependecy = 0
+            else:
+                self.get_answer(user_input)
+    
+    def get_movie(self, movie_name):
+        answer = self.run.get_movie_details(movie_name,self.dependecy)
+        if answer:
+            self.display_message("Movie VA: " + f"The {self.dependecy} of {movie_name} is {str(answer)}")
+        else:
+            self.display_message("Movie VA: Sorry, we cannot find the movie in our database.")
+        self.entry.delete('1.0', tk.END)
+    
     def get_answer(self, user_input):
-        answer = self.run.get_answer(user_input)
         movieName= intent_detection.MovieName()(user_input)
         intent = intent_detection.IntentType()(user_input)
+        answer = self.run.get_answer(user_input)
         if answer and intent and movieName:
-                if (movieName == "ERRORRRR" or answer == "ERRORRRR" or intent == "ERRORRRR" or movieName == "" or answer == "" or intent == ""):
-                    self.display_message("Movie VA: Sorry, we cannot find the movie name in our database, please check another movie.")
+                if (answer == "ERRORRRR_answer"):
+                    self.display_message("Movie VA: Sorry, we cannot find the information in our database for Movie name you provided.")
+                elif(answer=='ERRORRRR_intent_type'):
+                    self.display_message("Movie VA: Sorry, we cannot find what information you want from the movie, please check another intent.")
+                elif(answer=='ERRORRRR_movie_name'):
+                    self.dependecy = intent
+                    self.display_message("Movie VA: Sorry, we cannot find the movie name in our database, please write just the movie name")
                 elif(intent=='Year'):
                     self.display_message("Movie VA: The year of the movie " + str(movieName.title())+" is " + str(answer))
                 elif(intent=='Director'):
