@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 nltk_packages = ["punkt", "stopwords"]
 nltk.download(nltk_packages,quiet=True)
-
+nlp = spacy.load("en_core_web_sm")
 
 from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL
 
@@ -17,7 +17,7 @@ class MovieName:
     """
     def __init__(self):
         
-        self.nlp = spacy.load("en_core_web_sm")
+       
         # self.nlp = spacy.load("en_core_web_sm")
         self.model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
         self.API_URL = HUGGINGFACE_API_URL + self.model
@@ -28,21 +28,22 @@ class MovieName:
 
     def extract_movie_name(self, user_req) -> str:
         
-        #movie_name1 = self.extract_movie_name_ner(user_req)
+        movie_name1 = self.extract_movie_name_ner(user_req)
         # extract movie name from LLM
 
         movie_name2 = self.extract_movie_name_llm(user_req)
 
-        #print(f"movie_name1: {movie_name1}")
-        #print(f"movie_name2: {movie_name2}")
+        print(f"movie_name1: {movie_name1}")
+        print(f"movie_name2: {movie_name2}")
 
         return movie_name2
     
     def extract_movie_name_ner(self, user_req) -> str:
         # extract movie name from LLM
-        doc = self.nlp(user_req)
+        doc = nlp(user_req)
         movie_name = [ent.text for ent in doc.ents if ent.label_ in ("WORK_OF_ART", "ORG", "PERSON")]
         movie_name = movie_name[0] if movie_name else ''
+        return movie_name
 
     def extract_movie_name_llm(self, user_req) -> str:
         # extract movie name from LLM
