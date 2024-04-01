@@ -12,6 +12,7 @@ before you start, install the dependencies
 
 ```
 pip install -r requirements.txt
+spacy download en
 ```
 
 and get api_key from [omdb](https://www.omdbapi.com/apikey.aspx) then replace it in config.py
