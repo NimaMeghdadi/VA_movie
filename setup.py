@@ -67,7 +67,7 @@ class Run(object):
                 output = output.json()
                 if "error" in output:
                     delay_seconds = output['estimated_time']
-                    print(f"model is not ready pls wait {delay_seconds} seconds")
+                    print(f"model is not ready please wait {delay_seconds} seconds")
                     time.sleep(delay_seconds)
                 elif "score" in output:
                     print("model is ready")

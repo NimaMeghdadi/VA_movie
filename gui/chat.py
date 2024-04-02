@@ -17,22 +17,22 @@ class ChatApp(tk.Tk):
         self.dependecy = 0
         self.dependecy_m = 0
         self.run = setup.Run()
-        self.title("Virtual AMovie application")
+        self.title("VA-Movie application")
         self.geometry("500x700")
 
-        image_file = "gui/2.png"
+        image_file = "resources/8.png"
         img = PhotoImage(file=image_file)
         self.background_label = tk.Label(self, image=img)
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
         self.background_label.image = img
-        self.chat_log = ScrolledText(self, state='disabled', height=20 , font=('Helvetica', 12))
+        self.chat_log = ScrolledText(self, state='disabled', height=14 , font=('Helvetica', 14), foreground="#3d3d3d")
         self.chat_log.pack(padx=20, pady=(130,10) )
-        self.entry = ScrolledText(self, height=4, font=('Helvetica', 12))
+        self.entry = ScrolledText(self, height=4, font=('Helvetica', 14) , foreground="#3d3d3d")
         self.entry.pack(padx=20, pady=10)
-        
+        #bg="#163261"
         submit_button = tk.Button(self, text="Send", command=self.on_submit, height= 4 
-                                  , width=81, bg="#163261", fg="white", font=('Helvetica', 12))
-        submit_button.pack(pady=10)
+                                  , width=99, bg="#3d3d3d", fg="white", font=('Helvetica', 13))
+        submit_button.pack(padx=20,pady=10)
         self.display_message("Movie VA: Hello! How can I help you today?")
         self.bind("<Return>", self.on_submit)
 
