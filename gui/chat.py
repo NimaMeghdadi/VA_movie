@@ -68,7 +68,6 @@ class ChatApp(tk.Tk):
         self.entry.delete('1.0', tk.END)
         
     def get_movie(self, movie_name):
-        print("get movie #########################3")
         answer = self.run.get_movie_details(movie_name,self.dependecy)
         if answer:
             if (answer == "ERRORRRR_answer"):
@@ -82,9 +81,7 @@ class ChatApp(tk.Tk):
         self.entry.delete('1.0', tk.END)
     
     def get_answer(self, user_input):
-        movieName= intent_detection.MovieName()(user_input)
-        intent = intent_detection.IntentType()(user_input)
-        answer = self.run.get_answer(user_input)
+        answer,movieName,intent = self.run.get_answer(user_input)
         if answer == 'N/A':
             answer = "ERRORRRR_answer"
         if answer and intent and movieName:

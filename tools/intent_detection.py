@@ -1,15 +1,17 @@
 import requests
 import spacy
 import nltk
+import google.generativeai as genai
+
+from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL,GEMINI_API_KEY
 nltk_packages = ["punkt", "stopwords"]
 nltk.download(nltk_packages,quiet=True)
 nlp = spacy.load("en_core_web_sm")
 
-from config import HUGGINGFACE_API_KEY,HUGGINGFACE_API_URL
 
 class MovieName:
     """
-    Extracts movie names from a sentence.
+    Extracts movie names from a sentence using 2 main techniques: LLM and NER.
     """
     def __init__(self):
         self.model = "thatdramebaazguy/movie-roberta-MITmovie-squad"
@@ -22,29 +24,42 @@ class MovieName:
     def extract_movie_name(self, user_req) -> str:
         # extract movie name using NER
         movie_name1 = self.extract_movie_name_ner(user_req)
-
         # extract movie name from LLM
         movie_name2 = self.extract_movie_name_llm(user_req)
+        movie_name3 = self.extract_movie_name_llm_gemini(user_req)
         
         print(f"movie_name1: {movie_name1}")
         print(f"movie_name2: {movie_name2}")
-        print(movie_name2 == movie_name1)
-        
-        if movie_name1 == movie_name2:
-            return movie_name2
+        print(f"movie_name3: {movie_name3}")
+
+        if movie_name1 == movie_name2 == movie_name3:
+            return movie_name3
+        elif movie_name2 == movie_name3:
+            return movie_name3
+        elif movie_name1 == movie_name3:
+            return movie_name3
+        elif movie_name1 == movie_name2:
+            return movie_name1
         elif len(movie_name1.split()) <=2 and len(movie_name1.split()) >0:
             return movie_name1
-        elif movie_name1 =='':
-            return movie_name2
+        elif movie_name1 =='' and movie_name3 != "ERRORRRR_movie_name":
+            return movie_name3
         return "ERRORRRR_movie_name"
     
     def extract_movie_name_ner(self, user_req) -> str:
         # extract movie name from LLM Huggingface
         doc = nlp(user_req)
-        movie_name = [ent.text for ent in doc.ents if ent.label_ in ("WORK_OF_ART", "ORG", "PERSON",'NUM')]
+        movie_name = [ent.text for ent in doc.ents if ent.label_ in ("WORK_OF_ART", "ORG", "PERSON",'NUM','DATE')]
         movie_name = movie_name[0] if movie_name else ''
         return movie_name
 
+    def extract_movie_name_llm_gemini(self, user_req) -> str:
+        genai.configure(api_key=GEMINI_API_KEY)   
+        model = genai.GenerativeModel('gemini-1.0-pro')
+        response_movie = model.generate_content(f"in this sentence: \" {user_req} \" give me the just movie name (if you did not find send \"ERRORRRR_movie_name\") ")
+        # print(response.text)
+        return response_movie.text
+    
     def extract_movie_name_llm(self, user_req) -> str:
         # extract movie name from LLM
         headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}

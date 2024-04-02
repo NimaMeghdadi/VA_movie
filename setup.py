@@ -37,12 +37,11 @@ class Run(object):
 
     def get_answer(self,user_req)-> str:
         # take intend and call api for response
-
         intent_type, movie_name=self.intent_creation(user_req)
         answer = self.get_movie_details(movie_name, intent_type) if intent_type and movie_name != None else "Intent not found"
         print(f"answer: {answer}")
         print(f"---------------------------------")
-        return answer
+        return answer, movie_name, intent_type
 
     def get_movie_details(self, movie_name, intent):
         return MovieDetailFetcher().get_movie_details(movie_name , intent)
