@@ -29,8 +29,12 @@ class MovieName:
         print(f"movie_name1: {movie_name1}")
         print(f"movie_name2: {movie_name2}")
         print(movie_name2 == movie_name1)
+        
         if movie_name1 == movie_name2:
-            print("VAREDSHOD")
+            return movie_name2
+        elif len(movie_name1.split()) <=2 and len(movie_name1.split()) >0:
+            return movie_name1
+        elif movie_name1 =='':
             return movie_name2
         return "ERRORRRR_movie_name"
     
@@ -82,7 +86,7 @@ class IntentType:
         "Plot": ["plot", "story", "summary", "synopsis", "plot summary", "plot of the movie", "plot of the film","the summary", "the plot"],
         "Actors": ["cast", "actors","actor","actress","actresses","starring","starred","star","stars","role","roles","character","characters", "the actors","the actresses","the cast"],
         "Rating": ["rating", "rated", "rated" , "imdb score", "score", "imdb rating", "imdb", "rate", "the rating"],
-        "Genre": ["genre", "horor", "comedy", "romantic", "action" , "thriller", "drama", "adventure", "sci-fi", "science fiction", "the genre"],
+        "Genre": ["genre", "horror","horor", "comedy", "romantic", "action" , "thriller", "drama", "adventure", "sci-fi", "science fiction", "the genre"],
         "Awards": ["awards", "award", "prize","prizes", "nominated", "nominations", "the awards","won", "winner", "winners"],
         "Language": ["language", "speak", "english", "spanish", "french" , "german", "italian", "the language"],
         "Country": ["country", "made", "origin", "originated" , "the country"],

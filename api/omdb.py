@@ -11,10 +11,10 @@ class MovieDetailFetcher:
         pass
 
     def get_movie_details(self, movie_name, intent):
-        if (movie_name == "ERRORRRR_movie_name"):
-            return "ERRORRRR_movie_name"
-        elif (intent == "ERRORRRR_intent_type"):
+        if (intent == "ERRORRRR_intent_type"):
             return "ERRORRRR_intent_type"
+        elif (movie_name == "ERRORRRR_movie_name"):
+            return "ERRORRRR_movie_name"
         payload = {'t': movie_name.title() , 'apikey': API_KEY}
         response = requests.get(OMDB_URL, params=payload, timeout=10)  # Added timeout argument
         response = response.json()
@@ -39,7 +39,7 @@ class MovieDetailFetcher:
             elif intent == 'country' or intent == 'Country':
                 results = response['Country']
             elif intent == 'writer' or intent == 'Writer':
-                results = response['Writer']
+                results = response['Writer'] 
         else:
             results = "ERRORRRR_answer"
 

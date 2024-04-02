@@ -11,16 +11,16 @@ class Run(object):
     """
     def __init__(self):
         pass
-        # self.sent = 'who is the director of Shawshank ?'
+        # self.sent = 'who is the director of Shawshank?'
         # self.sent = 'who is the director of dune?'
         # self.sent = 'who is the director of 1917?'
         # self.sent = 'who is the director of matrix?'
-    
+
     def __call__(self):
-        
+
         self.check_model()
         self.get_user_req()
-    
+
     def get_user_req(self):
         # start gui chat
         app = chat.ChatApp()
@@ -28,7 +28,7 @@ class Run(object):
 
     def intent_creation(self,user_req)-> str:
         # create intent by exracting movie name and intent type
-        
+
         movie_name = intent_detection.MovieName()
         intent_type = intent_detection.IntentType()
         print("movie name: "+ movie_name(user_req))
@@ -37,7 +37,7 @@ class Run(object):
 
     def get_answer(self,user_req)-> str:
         # take intend and call api for response
-        
+
         intent_type, movie_name=self.intent_creation(user_req)
         answer = self.get_movie_details(movie_name, intent_type) if intent_type and movie_name != None else "Intent not found"
         print(f"answer: {answer}")
@@ -77,11 +77,7 @@ class Run(object):
             except requests.exceptions.RequestException as e:
                 time.sleep(delay_seconds)
             return False
-        
+
 if __name__ == "__main__":
     run = Run() # create our instance
-    
     run() # call our instance
-
-    
-    
