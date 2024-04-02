@@ -1,6 +1,6 @@
 # Title 
 
-## Movie Virtual Assistant
+### Movie Virtual Assistant
 
 # Description
 
@@ -8,20 +8,26 @@ This program will bring the information that is available in [omdb dataset](http
 
 # Installation
 
-before you start, install the dependencies
+Before you start, install the dependencies
 
 ```
 pip install -r requirements.txt
+pip install -q -U google-generativeai
 spacy download en
 ```
 
 and get api_key from [omdb](https://www.omdbapi.com/apikey.aspx) then replace it in config.py
 
 # Features
+### movie detection
+Get movie name from the user input 
+- [movie-roberta-MITmovie-squad](https://huggingface.co/thatdramebaazguy/movie-roberta-MITmovie-squad)
+- [gemini](https://ai.google.dev/tutorials/python_quickstart)
+- [NER](https://demos.explosion.ai/displacy-ent)
 
-used [API](https://huggingface.co/thatdramebaazguy/movie-roberta-MITmovie-squad) to detection movie name from the input sentence.
+### intent detection
 
-used keywords to detect intent from the input sentence.
+Used keywords to detect intent from the input sentence.
 ```
 "Year": ["year", "when", "release date", "released"],
 "Director": ["director", "directed", "filmmaker", "directors", "directing", "direct"],
@@ -32,7 +38,7 @@ used keywords to detect intent from the input sentence.
 
 # Examples
 
-## OMDB API response example: 
+### OMDB API response example: 
 ```json
 {"Title":"Dune","Year":"2021","Rated":"PG-13","Released":"22 Oct 2021","Runtime":"155 min","Genre":"Action, Adventure, Drama","Director":"Denis Villeneuve","Writer":"Jon Spaihts, Denis Villeneuve, Eric Roth",
 "Actors":"Timothée Chalamet, Rebecca Ferguson, Zendaya","Plot":"A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.",
@@ -42,7 +48,7 @@ used keywords to detect intent from the input sentence.
 "Type":"movie","DVD":"22 Oct 2021","BoxOffice":"$108,897,830","Production":"N/A","Website":"N/A","Response":"True"}
 ```
 
-## Chatbot Environment example:
+### Chatbot Environment example:
 
 <img src="https://github.com/NimaMeghdadi/VA_movie/assets/73168289/f98a24b7-b855-4046-94d0-68f6ec5a11fe"  width="300" height="400" />
 
