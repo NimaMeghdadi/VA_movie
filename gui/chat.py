@@ -40,17 +40,16 @@ class ChatApp(tk.Tk):
         user_input = self.entry.get("1.0", tk.END).strip()
         if user_input:
             self.display_message("You: " + user_input)
-            if self.dependecy != 0:
+            if self.dependecy != 0: # for dependency statement
                 movie_name = user_input
                 self.get_movie(movie_name)
                 self.dependecy = 0
-                
             elif self.dependecy_m != 0:
                 intent = user_input
                 self.get_intent(intent)
                 self.dependecy_m = 0
-            else:
-                self.get_answer(user_input)
+
+            self.get_answer(user_input)
     
     def get_intent(self,intent):
         intent_type = intent_detection.IntentType()

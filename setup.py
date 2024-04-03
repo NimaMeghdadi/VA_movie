@@ -11,10 +11,6 @@ class Run(object):
     """
     def __init__(self):
         pass
-        # self.sent = 'who is the director of Shawshank?'
-        # self.sent = 'who is the director of dune?'
-        # self.sent = 'who is the director of 1917?'
-        # self.sent = 'who is the director of matrix?'
 
     def __call__(self):
 
