@@ -56,7 +56,7 @@ class MovieName:
     def extract_movie_name_llm_gemini(self, user_req) -> str:
         genai.configure(api_key=GEMINI_API_KEY)   
         model = genai.GenerativeModel('gemini-1.0-pro')
-        response_movie = model.generate_content(f"in this sentence: \" {user_req} \" give me the just movie name (if you did not find send \"ERRORRRR_movie_name\") ")
+        response_movie = model.generate_content(f"in this sentence: \" {user_req} \" give me the just movie name in the sentence (if you did not find send \"ERRORRRR_movie_name\") ")
         # print(response.text)
         return response_movie.text
     

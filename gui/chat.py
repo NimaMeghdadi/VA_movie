@@ -14,6 +14,7 @@ class ChatApp(tk.Tk):
     """
     def __init__(self):
         super().__init__()
+        self.flag_intent = 1
         self.dependecy = 0
         self.dependecy_m = 0
         self.run = setup.Run()
@@ -48,8 +49,8 @@ class ChatApp(tk.Tk):
                 intent = user_input
                 self.get_intent(intent)
                 self.dependecy_m = 0
-
-            self.get_answer(user_input)
+            else:
+                self.get_answer(user_input)
     
     def get_intent(self,intent):
         intent_type = intent_detection.IntentType()
@@ -87,7 +88,11 @@ class ChatApp(tk.Tk):
             if(answer=='ERRORRRR_intent_type' and movieName=='ERRORRRR_movie_name'):
                 self.display_message("Movie VA: Sorry, could you please paraphrase your question?") # both intent and movie name not found
             elif(answer=='ERRORRRR_intent_type'):
-                self.display_message("Movie VA: Sorry, could you please tell me what exactly you want to know about this movie ") # intent not found
+                if self.flag_intent == 1:
+                    self.display_message("Movie VA: Sorry, we cannot find the information you are looking for from this movie. In the current version of the system, we only support: Year, Director, Summary, Actors, Rating, Country, Awards, Language, Genre, and Writer. Please ask one of these. ") # intent not found
+                    self.flag_intent = 0
+                else:
+                    self.display_message("Movie VA: Sorry, we cannot find the information you are looking for from the movie. What exactly you want to know about the movie?") # intent not found
                 self.dependecy_m = movieName
             elif(answer=='ERRORRRR_movie_name'):
                 self.dependecy = intent
@@ -116,8 +121,6 @@ class ChatApp(tk.Tk):
                 self.display_message("Movie VA: The writer of the movie " + str(movieName.title())+"  is " + str(answer))
             else:
                 self.display_message("unfortunately, the information you are looking for does not supported in current version of VA-Movie")
-        
-        #self.display_message("Movie VA: " + str(answer))
         self.entry.delete('1.0', tk.END)
     
     def display_message(self, message):
