@@ -1,5 +1,5 @@
-API_KEY = 'f6dff722'
+API_KEY = '<Your_API_Key>'
 OMDB_URL = "http://www.omdbapi.com/"
-HUGGINGFACE_API_KEY = "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"
+HUGGINGFACE_API_KEY = "<Your_API_Key>"
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/"
-GEMINI_API_KEY = "AIzaSyCONVM4V2hXhgsS4ioBZR0qUHwVh4Mti38"
+GEMINI_API_KEY = "<Your_API_Key>"

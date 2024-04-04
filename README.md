@@ -16,7 +16,12 @@ pip install -q -U google-generativeai
 spacy download en
 ```
 
-and get api_key from [omdb](https://www.omdbapi.com/apikey.aspx) then replace it in config.py
+and get api_key from 
+- [omdb](https://www.omdbapi.com/apikey.aspx) 
+- [gemini](https://ai.google.dev/) 
+- [Hugging Face](https://huggingface.co/docs/api-inference/en/quicktour) 
+
+then replace it in config.py
 
 # Features
 ### movie detection

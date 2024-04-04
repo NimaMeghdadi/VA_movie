@@ -44,7 +44,7 @@ class MovieName:
             return movie_name1
         elif movie_name1 =='' and movie_name3 != "ERRORRRR_movie_name":
             return movie_name3
-        elif movie_name3 == "ERRORRRR_movie_name" and len(movie_name2.split()) <=2 and len(movie_name2.split()) >0:
+        elif movie_name3 == "ERRORRRR_movie_name" and len(movie_name2.split()) <=2 and len(movie_name2.split()) > 0:
             return movie_name2
         return "ERRORRRR_movie_name"
     
