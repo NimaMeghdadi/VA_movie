@@ -54,7 +54,8 @@ Used keywords to detect intent from the input sentence.
 ```
 
 ### Chatbot Environment example:
-
-<img src="https://github.com/NimaMeghdadi/VA_movie/assets/73168289/f98a24b7-b855-4046-94d0-68f6ec5a11fe"  width="300" height="400" />
+<p align="center">
+<img src="https://github.com/NimaMeghdadi/VA_movie/assets/4293190/865d9e7c-d225-4382-ab1a-801bcfeb9846"  width="600" height="400"/>
+</p>
 
 
