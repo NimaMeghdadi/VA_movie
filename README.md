@@ -1,61 +1,68 @@
-# Title 
 
-### Movie Virtual Assistant
+# Movie Virtual Assistant
 
-# Description
+## Description
+The Movie Virtual Assistant provides movie information in a chatbot environment, allowing users to retrieve details about films directly without needing to search manually. It integrates with the OMDb dataset, utilizing various APIs to fetch information about movies, including details on directors, release dates, genres, ratings, and more.
 
-This program will bring the information that is available in [omdb dataset](https://www.omdbapi.com/) using API in the chatbot environment and can help people who want to know specific information about movies without googling and try to find this information.
+## Features
+- **Movie Detection**: Identifies movie names from user input using `movie-roberta-MITmovie-squad` and Gemini for natural language processing (NLP).
+- **Named Entity Recognition (NER)**: Recognizes entities like movie titles, directors, and genres in user requests.
+- **Intent Detection**: Detects user intent based on keywords, such as release year or director, using predefined intent mappings for efficient querying.
 
-# Installation
+## Installation
+To set up the Movie Virtual Assistant:
 
-Before you start, install the dependencies
+1. Install the required dependencies by following the commands in `requirements.txt`, updating Google Generative AI, and downloading the English language model for SpaCy.
 
-```
-pip install -r requirements.txt
-pip install -q -U google-generativeai
-spacy download en
-```
+2. Obtain and set up API keys from the following providers:
+   - OMDb API
+   - Gemini
+   - Hugging Face
 
-and get api_key from 
-- [omdb](https://www.omdbapi.com/apikey.aspx) 
-- [gemini](https://ai.google.dev/) 
-- [Hugging Face](https://huggingface.co/docs/api-inference/en/quicktour) 
+3. Replace these keys in `config.py` to enable API access.
 
-then replace it in config.py
-
-# Features
-### movie detection
-Get movie name from the user input 
-- [movie-roberta-MITmovie-squad](https://huggingface.co/thatdramebaazguy/movie-roberta-MITmovie-squad)
-- [gemini](https://ai.google.dev/tutorials/python_quickstart)
-- [NER](https://demos.explosion.ai/displacy-ent)
-
-### intent detection
-
-Used keywords to detect intent from the input sentence.
-```
-"Year": ["year", "when", "release date", "released"],
-"Director": ["director", "directed", "filmmaker", "directors", "directing", "direct"],
-.
-.
-.
+## Configuration
+Add your API keys in the `config.py` file:
+```python
+# config.py
+OMDB_API_KEY = 'your_omdb_api_key'
+GEMINI_API_KEY = 'your_gemini_api_key'
+HUGGING_FACE_API_KEY = 'your_hugging_face_api_key'
 ```
 
-# Examples
+## Usage Examples
+Sample interaction with the assistant:
+- **User**: "Who directed Dune?"
+- **Assistant**: "Dune (2021) was directed by Denis Villeneuve."
 
-### OMDB API response example: 
+### Sample OMDb API Response
+A typical response from the OMDb API might include:
 ```json
-{"Title":"Dune","Year":"2021","Rated":"PG-13","Released":"22 Oct 2021","Runtime":"155 min","Genre":"Action, Adventure, Drama","Director":"Denis Villeneuve","Writer":"Jon Spaihts, Denis Villeneuve, Eric Roth",
-"Actors":"Timothée Chalamet, Rebecca Ferguson, Zendaya","Plot":"A noble family becomes embroiled in a war for control over the galaxy's most valuable asset while its heir becomes troubled by visions of a dark future.",
-"Language":"English, Mandarin","Country":"United States, Canada","Awards":"Won 6 Oscars. 173 wins & 294 nominations total","Poster":"https://m.mediaamazon.com/images/M/MV5BMDQ0NjgyN2YtNWViNS00YjA3LTkxNDktYzFkZTExZGMxZDkxXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
-"Ratings":[{"Source":"Internet Movie Database","Value":"8.0/10"},{"Source":"Rotten Tomatoes","Value":"83%"},
-{"Source":"Metacritic","Value":"74/100"}],"Metascore":"74","imdbRating":"8.0","imdbVotes":"772,111","imdbID":"tt1160419",
-"Type":"movie","DVD":"22 Oct 2021","BoxOffice":"$108,897,830","Production":"N/A","Website":"N/A","Response":"True"}
+{
+  "Title": "Dune",
+  "Year": "2021",
+  "Rated": "PG-13",
+  "Released": "22 Oct 2021",
+  "Genre": "Action, Adventure, Drama",
+  "Director": "Denis Villeneuve",
+  "Actors": "Timothée Chalamet, Rebecca Ferguson, Zendaya",
+  "Plot": "A noble family becomes embroiled in a war for control...",
+  "Ratings": [{"Source": "Internet Movie Database", "Value": "8.0/10"}],
+  "BoxOffice": "$108,897,830",
+  ...
+}
 ```
 
-### Chatbot Environment example:
-<p align="center">
-<img src="https://github.com/NimaMeghdadi/VA_movie/assets/4293190/865d9e7c-d225-4382-ab1a-801bcfeb9846"  width="600" height="400"/>
-</p>
+## Directory Structure
+- **api/**: Contains API interaction scripts for querying movie information.
+- **config.py**: Holds API keys and configuration settings.
+- **gui/**: Code for the graphical user interface (if available).
+- **requirements.txt**: Lists all dependencies for setting up the project.
+- **setup.py**: Script to install the package and its dependencies.
+- **tools/**: Utility scripts to assist with various functionalities.
 
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
+## License
+This project is licensed under the terms specified in the `LICENSE` file.
